@@ -1,14 +1,46 @@
-class player:
-    def __init__(self, name, model, type):
-        self.brand = brand
-        self.model = model
-        self.type = type
-        self.gas_tank_size = 14
-        self.fuel_level = 0
+class Player:
+    def __init__(self, name, position):
+        self.name = name
+        self.position = position
 
-    def fuel_up(self):
-        self.fuel_level = self.gas_tank_size
-        print('Gas tank is now full.')
+    def move(self, room):
+        self.position = self.position
+        print('Spieler geht in Raum ' + room)
 
-    def drive(self):
-        print(f'The {self.model} is now driving.')
+    def open(self):
+        print('test')
+
+    def take(self):
+        print('test')
+
+    def look(self):
+        print('test')
+
+#class inventory:
+
+
+class Room:
+    def __init__(self, name, description):
+        self.name = name
+        self.description = description
+        self.items = []
+
+### Draußen
+outdoor = Room(name='draußen', description='Draußen siehst du nichts')
+outdoor.items.append('test1')
+
+
+
+
+#class person:
+'''
+class Objects:
+    def __init__(self, name, description):
+        self.name = name
+        self.description = description
+
+class Coffemachine(Objects):
+    def __init__(self, name, description):
+        Objects.__init__(self, name, description)
+    def makes_coffe()
+'''
