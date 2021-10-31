@@ -7,6 +7,6 @@ def umschauen():
         if fnmatch.filter(x, '*schau*'):
             print('Du schaust dich um und siehst' + ' die Variable Nichts')
         else:
-            print('Ungültige Eingabe\n')
+            print('Das kannst du nicht machen.\n')
     except:
         print('testtest')
