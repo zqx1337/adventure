@@ -17,67 +17,58 @@ class Player:
     def look(self):
         print('testtest')
 
-class Room:
-    def __init__(self, name, description, items):
-        self.name = name
-        self.description = description
-        self.items = items
-
-# outdoor
-outdoor = Room(name='Draußen', description='Draußen siehst du nichts', items=['Matte, Schlüssel, Tor'])
-
-# bedroom
-bedroom = Room(name='Schlafzimmer', description='In diesem Zimmer siehst ', items=['Tastatur, Rechner'])
-
-# garage
-garage = Room(name='Garage', description='In diesem Zimmer siehst ', items=['Tastatur, Rechner'])
-
-# livingroom
-livingroom = Room(name='Wohnzimmer', description='In diesem Zimmer siehst ', items=['Tastatur, Rechner'])
-
-# storeroom
-storeroom = Room(name='Abstellkammer', description='In diesem Zimmer siehst ', items=['Tastatur, Rechner'])
-
-# workroom
-workroom = Room(name='Arbeitszimmer', description='In diesem Zimmer siehst ', items=['Tastatur, Rechner'])
-
-# bathroom
-bathroom = Room(name='Badezimmer', description='In diesem Zimmer siehst ', items=['Tastatur, Rechner'])
-
 
 class Person:
     def __init__(self, name, description):
         self.name = name
         self.description = description
 
-# bathroom
-Berty = Person(name='Berty', description='Schläfriger Typ, könnte einen Kaffee gebrauchen.')
 
-
-# usable objects
+# searchable objects
 class Objects:
-    def __init__(self, name, description, status):
+    def __init__(self, name, description, searchable, inventory):
         self.name = name
         self.description = description
-        self.status = status
+        self.searchable = searchable
+        self.inventory = inventory
 
 
-# postbox
-postbox = Objects(name='Briefkasten', description='Ein Briefkasten - haben wir Post?', status=False)
-
-# doormat
-doormat = Objects(name='Fußmatte', description='Schöne Fußmatte - da war doch was damit oder?', status=False)
-
+# collectable stuff
 class Items(Objects):
-    def __init__(self, name, description, status, taken):
+    def __init__(self, name, description, collectable):
         self.name = name
         self.description = description
-        self.status = status
-        self.taken = taken
+        self.collectable = collectable
 
+# producing stuff
 class Coffeemachine(Objects):
     pass
+    def __init__(self, name, description, inventory, active):
+        self.name = name
+        self.description = description
+        self.inventory = inventory
+        self.active = active
     def makes_coffe(self):
         print('Die Kaffeemaschine geht an und macht einen Kaffee')
+        self.activate = True
+
+
+# activatable stuff
+class Powerbox(Objects):
+    pass
+    def __init__(self, name, description, active):
+        self.name = name
+        self.description = description
+        self.active = active
+    def activate_power(self):
+        print('Der Strom geht an.')
+
+
+class Room:
+    def __init__(self, name, description, items, person):
+        self.name = name
+        self.description = description
+        self.items = items
+        self.person = person
 
 
