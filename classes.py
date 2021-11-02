@@ -49,7 +49,8 @@ class Coffeemachine(Objects):
         self.inventory = inventory
         self.active = active
     def makes_coffe(self):
-        print('Die Kaffeemaschine geht an und macht einen Kaffee')
+        print('Die Kaffeemaschine geht an und macht einen Kaffee.')
+        self.inventory += coffee
         self.activate = True
 
 

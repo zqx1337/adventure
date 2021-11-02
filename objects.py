@@ -24,7 +24,7 @@ postbox = Objects(name='Briefkasten', description='Ein Briefkasten - scheint lee
 doormat = Objects(name='Matte', description='Schöne Fußmatte.', searched=False, inventory=[keyboard])
 
 # stone
-stone = Objects(name='Stein', description='Komischer Stein - da war doch was damit oder?', searched=True, inventory=[key])
+stone = Objects(name='Stein', description='Komischer Stein - da war doch was damit oder?', searched=False, inventory=[key])
 
 # frontdoor
 frontdoor = Objects(name='Haustür', description='Die Haustür. Um sie aufzumachen benötigst du einen Schlüssel.', searched=False, inventory=[])
@@ -72,7 +72,8 @@ powerbox = Powerbox(name='Stromkasten', description='Der Stromkasten. Sind alle 
 ### Coffeemachine Class (Stuff that creates something) ###
 
 # coffeemachine
-coffeemachine = Coffeemachine(name='Kaffeemaschine', description='Ob der Kaffee wohl schmeckt?', inventory=[],
+coffeemachine = Coffeemachine(name='Kaffeemaschine', description='Vollautomatik - Eine Tasse steht schon da, '
+                                                                 'du musst die Maschine nur noch anmachen.', inventory=[],
                               active=False)
 
 ### Room Class ###
