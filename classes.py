@@ -26,11 +26,11 @@ class Person:
 
 # searchable objects
 class Objects:
-    def __init__(self, name, description, searchable, inventory):
+    def __init__(self, name, description, searched, inventory):
         self.name = name
         self.description = description
-        self.searchable = searchable
         self.inventory = inventory
+        self.searched = searched
 
 
 # collectable stuff

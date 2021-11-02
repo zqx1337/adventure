@@ -18,49 +18,49 @@ coffee = Items(name='Tasse Kaffee', description='Eine leckere Tasse Kaffee.', co
 ### Objects Class (searchable stuff) ###
 
 # postbox
-postbox = Objects(name='Briefkasten', description='Ein Briefkasten - haben wir Post?', searchable=True, inventory=[])
+postbox = Objects(name='Briefkasten', description='Ein Briefkasten - scheint leer zu sein.', searched=False, inventory=[])
 
 # doormat
-doormat = Objects(name='Matte', description='Schöne Fußmatte.', searchable=True, inventory=[])
+doormat = Objects(name='Matte', description='Schöne Fußmatte.', searched=False, inventory=[keyboard])
 
 # stone
-stone = Objects(name='Stein', description='Komischer Stein - da war doch was damit oder?', searchable=True, inventory=[key])
+stone = Objects(name='Stein', description='Komischer Stein - da war doch was damit oder?', searched=True, inventory=[key])
 
 # frontdoor
-frontdoor = Objects(name='Haustür', description='Die Haustür. Um sie aufzumachen benötigst du einen Schlüssel.', searchable=True, inventory=[key])
+frontdoor = Objects(name='Haustür', description='Die Haustür. Um sie aufzumachen benötigst du einen Schlüssel.', searched=False, inventory=[])
 
 # gate
-gate = Objects(name='Garagentor', description='Das Garagentor ist kaputt. Momentag kann es nicht geöffnet werden.', searchable=True, inventory=[key])
+gate = Objects(name='Garagentor', description='Das Garagentor ist kaputt. Momentan kann es nicht geöffnet werden.', searched=False, inventory=[])
 
 # window
-window = Objects(name='Fenster', description='Das Fenster scheint offen zu sein. Du könntest durchs Fenster hinkommen. ', searchable=True, inventory=[key])
+window = Objects(name='Fenster', description='Das Fenster scheint offen zu sein. Du könntest durchs Fenster ins Haus kommen. ', searched=False, inventory=[])
 
 # bedroom_boxes
-bedroom_boxes = Objects(name='Schlafzimmer Boxen', description='Die Kisten im Schlafzimmer. Was ist hier wohl drin?', searchable=True, inventory=[key])
+bedroom_boxes = Objects(name='Schlafzimmer Boxen', description='Die Kisten im Schlafzimmer. Was ist hier wohl drin?', searched=False, inventory=[])
 
 # workbench
-workbench = Objects(name='Werkbank', description='Tolle Werkbank. Gerade kannst du sie nicht gebrauchen.', searchable=True, inventory=[key])
+workbench = Objects(name='Werkbank', description='Tolle Werkbank. Gerade kannst du sie nicht gebrauchen.', searched=False, inventory=[])
 
 # car
-car = Objects(name='Auto', description='Dein Auto. Vielleicht ist noch was im Kofferraum?', searchable=True, inventory=[key])
+car = Objects(name='Auto', description='Dein Auto. Vielleicht ist noch was im Kofferraum?', searched=False, inventory=[])
 
 # trunk
-trunk = Objects(name='Kofferraum', description='War noch was im Kofferraum?', searchable=True, inventory=[key])
+trunk = Objects(name='Kofferraum', description='War noch was im Kofferraum?', searched=False, inventory=[])
 
 # chair
-chair = Objects(name='Stuhl', description='Dein Bürostuhl. Du brauchst ihn für dein Arbeitszimmer.', searchable=True, inventory=[key])
+chair = Objects(name='Stuhl', description='Dein Bürostuhl. Du brauchst ihn für dein Arbeitszimmer.', searched=False, inventory=[])
 
 # table
-table = Objects(name='Tisch', description='Komischer Stein - da war doch was damit oder?', searchable=True, inventory=[key])
+table = Objects(name='Tisch', description='Komischer Stein - da war doch was damit oder?', searched=False, inventory=[])
 
 # fridge
-fridge = Objects(name='Kühlschrank', description='Komischer Stein - da war doch was damit oder?', searchable=True, inventory=[key])
+fridge = Objects(name='Kühlschrank', description='Komischer Stein - da war doch was damit oder?', searched=False, inventory=[])
 
 # storeroom_box
-storeroom_box = Objects(name='Abstellkammer-Box', description='Die Kiste in Abstellkammer. Was ist hier wohl drin?', searchable=True, inventory=[key])
+storeroom_box = Objects(name='Abstellkammer-Box', description='Die Kiste in Abstellkammer. Was ist hier wohl drin?', searched=False, inventory=[])
 
 # bathroom_boxes
-bathroom_boxes = Objects(name='Badezimmer-Boxen', description='Die Kisten im Badezimmer. Was ist hier wohl drin?', searchable=True, inventory=[key])
+bathroom_boxes = Objects(name='Badezimmer-Boxen', description='Die Kisten im Badezimmer. Was ist hier wohl drin?', searched=False, inventory=[])
 
 
 ### Powerbox Class (activateable stuff) ###
@@ -78,28 +78,36 @@ coffeemachine = Coffeemachine(name='Kaffeemaschine', description='Ob der Kaffee 
 ### Room Class ###
 
 # outdoor
-outdoor = Room(name='Draußen', description='Draußen siehst ', items=[postbox, doormat, stone, frontdoor, gate, window],
+front = Room(name='Vor dem Haus', description='', items=[postbox, doormat, stone, frontdoor, gate],
+               person=[])
+
+rear = Room(name='Hinter dem Haus', description='', items=[window],
                person=[])
 
 # bedroom
-bedroom = Room(name='Schlafzimmer', description='In diesem Zimmer siehst ', items=[bedroom_boxes, window],
+bedroom = Room(name='Schlafzimmer', description='', items=[bedroom_boxes, window],
                person=[Berty])
 
 # garage
-garage = Room(name='Garage', description='In diesem Zimmer siehst ', items=[workbench, car, trunk, chair],
+garage = Room(name='Garage', description='', items=[workbench, car, trunk, chair],
               person=[])
 
 # livingroom
-livingroom = Room(name='Wohnzimmer', description='In diesem Zimmer siehst ', items=[table, coffeemachine, fridge],
+livingroom = Room(name='Wohnzimmer', description='', items=[table, coffeemachine, fridge],
                   person=[])
 
 # storeroom
-storeroom = Room(name='Abstellkammer', description='In diesem Zimmer siehst ', items=[storeroom_box, powerbox],
+storeroom = Room(name='Abstellkammer', description='', items=[storeroom_box, powerbox],
                  person=[])
 
 # workroom
-workroom = Room(name='Arbeitszimmer', description='In diesem Zimmer siehst ', items=[], person=[])
+workroom = Room(name='Arbeitszimmer', description='', items=[], person=[])
 
 # bathroom
-bathroom = Room(name='Badezimmer', description='In diesem Zimmer siehst ', items=[bathroom_boxes], person=[])
+bathroom = Room(name='Badezimmer', description='', items=[bathroom_boxes], person=[])
 
+rooms = [bathroom, workroom, bedroom, livingroom, storeroom, garage, front, rear]
+
+### Player Class
+# Player
+Player = Player(name='', position=front, inventory=[])
