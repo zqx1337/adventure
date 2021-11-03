@@ -148,9 +148,19 @@ while game:
                         elif not person.talk:
                             print('Die Person möchte nicht mit der sprechen.')
                             check = True
+                    # if the person has his mission item in inventory
+                        if person.inventory:
+                            print(person.talk2)
+                            check = True
+                            if person.reward:
+                                for reward in person.reward:
+                                    print('Du erhälst als Belohnung:\n',reward)
+                                    Player.inventory.append(reward.name)
+                                    person.reward.remove(reward.name)
+                            else:
+                                'Von mir bekommst du nichts mehr.'
                     if not check:
                         print(person.talk)
-
 
 
                 else:
@@ -176,7 +186,6 @@ while game:
 
                 # will be set to true if input is in the room list
                 check = False
-                check2 = False
                 # checks player inventory if item already in inventory
                 for item in Player.inventory:
                     if fnmatch.filter(x, '*' + item.name + '*'):
@@ -184,6 +193,7 @@ while game:
                         print('Info -', item.description)
                         check = True
                 # only checks if not already in player inventory
+                check2 = False
                 if not check:
                     # check if object is in the room
                     if not check2:

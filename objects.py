@@ -74,9 +74,10 @@ coffeemachine = Coffeemachine(name='Kaffeemaschine', description='Vollautomatik 
 
 ### Person Class
 # berty
-Berty = Person(name='Berty', description='Schläfriger Typ, könnte einen Kaffee gebrauchen.', inventory=[],
+Berty = Person(name='Berty', description='Schläfriger Typ, könnte einen Kaffee gebrauchen.', inventory=[], reward=[chair],
                mission=[coffee], talk='Moin.\nIch bin so müde. Hol mir bitte einen Kaffee.'
-                                      '\nVorher bleibe ich auf deinem Stuhl sitzen.')
+                                      '\nVorher bleibe ich auf deinem Stuhl sitzen.', talk2='Aaaah, danke für den Kaffee ' \
+                                                                                             'jetzt muss ich nicht mehr sitzen.')
 
 ### Room Class ###
 
