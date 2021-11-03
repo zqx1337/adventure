@@ -1,6 +1,10 @@
 from objects import *
 import fnmatch
 
+# debug stuff
+import traceback
+import sys
+
 print('####################################################################'
       '\nHallo und herzlich Willkommen zu unserem Textabenteuer.\nZiel ist es alle Gegenstände deines'
       ' Computers zu finden und sie in dein Arbeitszimmer zu bringen.'
@@ -26,12 +30,18 @@ while game:
     # help command if commands forgotten - fnmatch is case-insensitive
     if fnmatch.filter(x, '*Hilfe*'):
         print('\nDu kannst immer folgendes tun: \numschauen, nehmen, geben, ansprechen,'
-              ' benutzen, öffnen, gehen, untersuchen\n')
+              ' benutzen, gehen, untersuchen\n')
 
     elif fnmatch.filter(x, '*inventar*'):
         print('\nIn deinem Inventar hast du folgendes:\n')
-        for item in Player.inventory:
-            print(item.name)
+        inventar_list = []
+        if Player.inventory:
+            for item in Player.inventory:
+                inventar_list.append(item.name)
+            joined_inventar = ", ".join(inventar_list)
+            print(joined_inventar)
+        else:
+            print('Nichts.')
 
     else:
         try:
@@ -41,8 +51,20 @@ while game:
                 print('Zur Zeit befindest du dich hier:')
                 print(Player.position.name)
                 print('Du schaust dich um und siehst:')
+                # creates comma seperated string and prints it out
+                item_list = []
                 for item in Player.position.items:
-                    print(item.name)
+                    item_list.append(item.name)
+                joined_itemlist = ", ".join(item_list)
+                print(joined_itemlist)
+                # if any person exists in room prints out
+                if Player.position.person:
+                    person_list = []
+                    print('Außerdem befinden sich folgende Personen im Raum:')
+                    for person in Player.position.person:
+                        person_list.append(person.name)
+                    joined_person_list = ", ".join(person_list)
+                    print(joined_person_list)
 
             elif fnmatch.filter(x, '*nehm*'):
                 check = False
@@ -76,20 +98,57 @@ while game:
                                     print('Du musst vorher wahrscheinlich noch was dafür machen.')
 
             elif fnmatch.filter(x, '*geb*'):
-                print('Du schaust dich um und siehst ' + ' die Variable Nichts')
+                # check if any person in room
+                if Player.position.person:
+                    # check if the wanted person in in room
+                    check = False
+                    for person in Player.position.person:
+                        if not fnmatch.filter(x, '*' + person.name + '*'):
+                            print('Die Person der du etwas geben möchtest, gibt es hier nicht.')
+                            check = True
+                        # if person does not need anything
+                        elif not person.mission:
+                            print(person.name, 'möchte nichts von dir bekommen.')
+                            check = True
+                    if not check:
+                        check2 = False
+                        # checks if item is in players inventory
+                        for item in Player.inventory:
+                            if fnmatch.filter(x, '*' + item.name + '*'):
+                                check2 = True
+                        if not check2:
+                            print('Soetwas hast du nicht.')
+                        # only checks if not already in inventory
+                        elif check2:
+                            # looks in mission list of person to see if needed
+                            for mission in person.mission:
+                                # breaks loop if mission accomplished
+                                if fnmatch.filter(x, '*' + mission.name + '*'):
+                                    print('Du gibst', person.name, 'folgendes:')
+                                    print(mission.name)
+                                    person.inventory.append(mission)
+                                    Player.inventory.remove(mission)
+                                    break
+                                else:
+                                    print(person.name, 'möchte das nicht von dir bekommen.')
+                else:
+                    print('Hier ist niemand außer dir.')
+
 
             elif fnmatch.filter(x, '*sprech*'):
                 print('Du schaust dich um und siehst ' + ' die Variable Nichts')
 
             elif fnmatch.filter(x, '*benutz*'):
                 for object in Player.position.items:
-                    if fnmatch.filter(x, '*' + object.name + '*'):
-                        # the object with the item in it has to be searched, so you know that is actually exists
-                        if not object.active:
-                            Coffeemachine.makes_coffe(object)
-                        else:
-                            print('Du schaltest',object.name,'aus.')
-                            object.active = False
+                        if fnmatch.filter(x, '*' + object.name + '*'):
+                            if not object.inventory:
+                                if not object.active:
+                                    Coffeemachine.makes_coffe(object,coffee)
+                                else:
+                                    print('Du schaltest',object.name,'aus.')
+                                    object.active = False
+                            else:
+                                print('Das geht gerade nicht.')
 
 
     # checks if any word with "suche" is in input, then checks if any word in input is in the list of items
@@ -101,10 +160,10 @@ while game:
                 check = False
                 check2 = False
                 # checks player inventory if item already in inventory
-                for item in Player.inventory:
+                for item in Player.inventory.person:
                     if fnmatch.filter(x, '*' + item.name + '*'):
                         print(item.name,'liegt in deinem Inventar.')
-                        print('Info -',item.description)
+                        print('Info -', item.description)
                         check = True
                 # only checks if not already in player inventory
                 if not check:
@@ -153,8 +212,8 @@ while game:
                 print('Das kannst du leider nicht machen.')
 
     # if any python error occurs
-        except:
-            print('Das kannst du nicht machen.\n')
-
+        except Exception:
+            print(traceback.format_exc())
+            print(sys.exc_info()[2])
 
 

@@ -1,9 +1,5 @@
 from classes import *
 
-### Person Class
-# berty
-Berty = Person(name='Berty', description='Schläfriger Typ, könnte einen Kaffee gebrauchen.')
-
 ### Items Class (collectable stuff) ###
 
 # keyboard
@@ -13,7 +9,7 @@ keyboard = Items(name='Tastatur', description='Eine schöne RGB-Tastatur.', coll
 key = Items(name='Schlüssel', description='Schlüssel für die Haustür.', collectable=True)
 
 # coffee
-coffee = Items(name='Tasse Kaffee', description='Eine leckere Tasse Kaffee.', collectable=True)
+coffee = Items(name='Kaffee', description='Eine leckere Tasse Kaffee.', collectable=True)
 
 ### Objects Class (searchable stuff) ###
 
@@ -51,10 +47,10 @@ trunk = Objects(name='Kofferraum', description='War noch was im Kofferraum?', se
 chair = Objects(name='Stuhl', description='Dein Bürostuhl. Du brauchst ihn für dein Arbeitszimmer.', searched=False, inventory=[])
 
 # table
-table = Objects(name='Tisch', description='Komischer Stein - da war doch was damit oder?', searched=False, inventory=[])
+table = Objects(name='Tisch', description='Rustikal.', searched=False, inventory=[])
 
 # fridge
-fridge = Objects(name='Kühlschrank', description='Komischer Stein - da war doch was damit oder?', searched=False, inventory=[])
+fridge = Objects(name='Kühlschrank', description='Leider noch nichts drin.', searched=False, inventory=[])
 
 # storeroom_box
 storeroom_box = Objects(name='Abstellkammer-Box', description='Die Kiste in Abstellkammer. Was ist hier wohl drin?', searched=False, inventory=[])
@@ -75,6 +71,10 @@ powerbox = Powerbox(name='Stromkasten', description='Der Stromkasten. Sind alle 
 coffeemachine = Coffeemachine(name='Kaffeemaschine', description='Vollautomatik - Eine Tasse steht schon da, '
                                                                  'du musst die Maschine nur noch anmachen.', inventory=[],
                               active=False)
+
+### Person Class
+# berty
+Berty = Person(name='Berty', description='Schläfriger Typ, könnte einen Kaffee gebrauchen.', inventory=[], mission=[coffee])
 
 ### Room Class ###
 
@@ -111,4 +111,4 @@ rooms = [bathroom, workroom, bedroom, livingroom, storeroom, garage, front, rear
 
 ### Player Class
 # Player
-Player = Player(name='', position=front, inventory=[])
+Player = Player(name='', position=front, inventory=[coffee, keyboard, doormat])

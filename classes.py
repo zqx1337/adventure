@@ -8,20 +8,13 @@ class Player:
         self.position = position
         print('Spieler geht ', position.name,'.')
 
-    def open(self):
-        print('Du versuchst', x, 'öffnen.')
-
-    def take(self):
-        print('Du versuchst', x, 'aufzunehmen.')
-
-    def look(self):
-        print('testtest')
-
 
 class Person:
-    def __init__(self, name, description):
+    def __init__(self, name, description, inventory, mission):
         self.name = name
         self.description = description
+        self.inventory = inventory
+        self.mission = mission
 
 
 # searchable objects
@@ -40,6 +33,7 @@ class Items(Objects):
         self.description = description
         self.collectable = collectable
 
+
 # producing stuff
 class Coffeemachine(Objects):
     pass
@@ -48,10 +42,10 @@ class Coffeemachine(Objects):
         self.description = description
         self.inventory = inventory
         self.active = active
-    def makes_coffe(self):
+    def makes_coffe(self, produce):
         print('Die Kaffeemaschine geht an und macht einen Kaffee.')
-        self.inventory += coffee
-        self.activate = True
+        self.inventory.append(produce)
+        self.active = True
 
 
 # activatable stuff
