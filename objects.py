@@ -8,8 +8,8 @@ keyboard = Items(name='Tastatur', description='Eine schöne RGB-Tastatur.', coll
 # key
 key = Items(name='Schlüssel', description='Schlüssel für die Haustür.', collectable=True)
 
-# coffee
-coffee = Items(name='Kaffee', description='Eine leckere Tasse Kaffee.', collectable=True)
+# cup
+cup = Items(name='Tasse', description='Eine leckere Tasse Kaffee.', collectable=True)
 
 ### Objects Class (searchable stuff) ###
 
@@ -75,7 +75,7 @@ coffeemachine = Coffeemachine(name='Kaffeemaschine', description='Vollautomatik 
 ### Person Class
 # berty
 Berty = Person(name='Berty', description='Schläfriger Typ, könnte einen Kaffee gebrauchen.', inventory=[], reward=[chair],
-               mission=[coffee], talk='Moin.\nIch bin so müde. Hol mir bitte einen Kaffee.'
+               mission=[cup], talk='Moin.\nIch bin so müde. Hol mir bitte einen Kaffee.'
                                       '\nVorher bleibe ich auf deinem Stuhl sitzen.', talk2='Aaaah, danke für den Kaffee ' \
                                                                                              'jetzt muss ich nicht mehr sitzen.')
 
@@ -112,6 +112,9 @@ bathroom = Room(name='Badezimmer', description='', items=[bathroom_boxes], perso
 
 rooms = [bathroom, workroom, bedroom, livingroom, storeroom, garage, front, rear]
 
+room_connections = [[front, livingroom, rear], [bathroom, livingroom],
+                    [workroom, livingroom], [storeroom, livingroom], [garage, bedroom], [bedroom, livingroom]]
+
 ### Player Class
 # Player
-Player = Player(name='', position=front, inventory=[coffee, keyboard, doormat])
+Player = Player(name='', position=front, inventory=[cup, keyboard, doormat])
