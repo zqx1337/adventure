@@ -10,12 +10,12 @@ class Player:
 
 
 class Person:
-    def __init__(self, name, description, inventory, mission):
+    def __init__(self, name, description, inventory, mission, talk):
         self.name = name
         self.description = description
         self.inventory = inventory
         self.mission = mission
-
+        self.talk = talk
 
 # searchable objects
 class Objects:

@@ -136,7 +136,25 @@ while game:
 
 
             elif fnmatch.filter(x, '*sprech*'):
-                print('Du schaust dich um und siehst ' + ' die Variable Nichts')
+                # check if any person in room
+                if Player.position.person:
+                    # check if the wanted person in in room
+                    check = False
+                    for person in Player.position.person:
+                        if not fnmatch.filter(x, '*' + person.name + '*'):
+                            print('Die Person mit der du sprechen möchtest, gibt es hier nicht.')
+                            check = True
+                        # if person has nothing to say
+                        elif not person.talk:
+                            print('Die Person möchte nicht mit der sprechen.')
+                            check = True
+                    if not check:
+                        print(person.talk)
+
+
+
+                else:
+                    print('Hier ist niemand außer dir.')
 
             elif fnmatch.filter(x, '*benutz*'):
                 for object in Player.position.items:
@@ -160,7 +178,7 @@ while game:
                 check = False
                 check2 = False
                 # checks player inventory if item already in inventory
-                for item in Player.inventory.person:
+                for item in Player.inventory:
                     if fnmatch.filter(x, '*' + item.name + '*'):
                         print(item.name,'liegt in deinem Inventar.')
                         print('Info -', item.description)
@@ -187,7 +205,7 @@ while game:
                                     print('Dir fällt sonst nichts besonders auf.')
                     # if no word from input was found in items
                     if not check2:
-                        print('Das gibts hier nicht.')
+                        print('Das kannst du nicht untersuchen.')
 
             elif fnmatch.filter(x, '*geh*'):
 
