@@ -19,6 +19,7 @@ class Person:
         self.talk2 = talk2
         self.reward = reward
 
+
 # searchable objects
 class Objects:
     def __init__(self, name, description, searched, inventory):
@@ -39,11 +40,13 @@ class Items(Objects):
 # producing stuff
 class Coffeemachine(Objects):
     pass
+
     def __init__(self, name, description, inventory, active):
         self.name = name
         self.description = description
         self.inventory = inventory
         self.active = active
+
     def makes_coffe(self, produce):
         print('Die Kaffeemaschine geht an und macht einen Kaffee.')
         self.inventory.append(produce)
@@ -53,14 +56,18 @@ class Coffeemachine(Objects):
 # activatable stuff
 class Powerbox(Objects):
     pass
+
     def __init__(self, name, description, active):
         self.name = name
         self.description = description
         self.active = active
+
     def activate_power(self):
         print('Der Strom geht an.')
+        power = True
 
 
+# rooms
 class Room:
     def __init__(self, name, description, items, person):
         self.name = name

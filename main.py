@@ -21,6 +21,9 @@ print('\nHallo ' + Player.name + '!\nWir wünschen dir viel Erfolg!'
 
 game = True
 
+# power in house if off an has to be activated for the coffeemachine
+power = False
+
 # game is going on as long game is True
 while game:
 
@@ -43,8 +46,38 @@ while game:
         else:
             print('Nichts.')
 
+    if winning(computer_items, Player.inventory):
+        print('Glückwunsch! Du hast alle Gegenstände gefunden und sie ins Arbeitszimmer gebracht.'
+              'Damit hast du das Spiel gewonnen.')
+        game = False
+
     else:
         try:
+            # gehen
+            gehen = ['*gehe*', '*beweg*', '*lauf*']
+            for word in gehen:
+                if fnmatch.filter(x, word):
+
+                    # will be set to true if input is in the room list
+                    check = False
+                    # checks if input words could be a room
+                    for room in rooms:
+                        if fnmatch.filter(x, '*' + room.name + '*'):
+                            check = True
+                            if room.name == Player.position.name:
+                                print('Du bist bereits hier.')
+                            elif connection_check(room, Player.position):
+                                print('Du gehst jetzt hierhin:\n', room.name)
+                                print(room.description)
+                                # changes player position to new room
+                                Player.position = room
+                            else:
+                                print('Von hier aus kannst du dort nicht hingehen.')
+                            break
+                    if not check:
+                        print('Dahin kannst du nicht gehen.')
+                break
+
             # checks input for *schau* and shows you the room you're in
             # and the items available to interact with
             # schauen
@@ -60,6 +93,19 @@ while game:
                         item_list.append(item.name)
                     joined_itemlist = ", ".join(item_list)
                     print(joined_itemlist)
+                    # available paths
+                    print('Du könntest hierhin gehen:')
+                    room_list = []
+                    # needed because objects get deleted if not copied
+                    for entry in room_connections:
+                        for room in entry:
+                            if Player.position == room:
+                                new_entry = entry
+                    for room in new_entry:
+                        if not room == Player.position:
+                            room_list.append(room.name)
+                        joined_roomlist = ", ".join(room_list)
+                    print(joined_roomlist)
                     # if any person exists in room prints out
                     if Player.position.person:
                         person_list = []
@@ -100,6 +146,10 @@ while game:
                                             # adding to player inventory and removing from object inventory
                                             Player.inventory.append(item)
                                             object.inventory.remove(item)
+                                            if item.name == 'Schlüssel':
+                                                print('Du kannst nun durch die Tür ins Wohnzimmer gehen.')
+                                                new_connection = [livingroom, front]
+                                                room_connections.append(new_connection)
                                         else:
                                             print('Das kannst du nicht ins Inventar legen.')
                                     else:
@@ -169,7 +219,7 @@ while game:
                                 check = True
                                 if person.reward:
                                     for reward in person.reward:
-                                        print('Du erhälst als Belohnung:\n',reward)
+                                        print('Du erhälst als Belohnung:\n', reward)
                                         Player.inventory.append(reward.name)
                                         person.reward.remove(reward.name)
                                 else:
@@ -181,20 +231,43 @@ while game:
                     break
 
             # benutzen
+            power_check = True
             benutzen = ['*benutze*', '*aktiviere*', '*mach*']
             for word in benutzen:
                 if fnmatch.filter(x, word):
                     for object in Player.position.items:
                         if fnmatch.filter(x, '*' + object.name + '*'):
-                            if not object.inventory:
-                                if not object.active:
-                                    Coffeemachine.makes_coffe(object,cup)
-                                else:
-                                    print('Du schaltest', object.name, 'aus.')
-                                    object.active = False
-                            else:
-                                print('Das geht gerade nicht.')
-                    break
+                            # kaffee
+                            if fnmatch.filter(['kaffeemaschine'], '*' + object.name + '*'):
+                                if object.inventory:
+                                    if not power:
+                                        print('Der Strom scheint nicht an zu sein. Vielleicht kannst du ihn aktivieren.')
+                                        power_check = False
+                                    elif not object.active:
+                                        # only works if power is active
+                                        if power:
+                                            Coffeemachine.makes_coffe(object, cup)
+                                            power_check = False
+                                        break
+                                    else:
+                                        print('Du schaltest', object.name, 'aus.')
+                                        object.active = False
+                                        power_check = False
+                                        break
+
+                            # power
+                            powerlist = ['*strom*', '*sicherung*']
+                            for power_word in powerlist:
+                                if fnmatch.filter(x, power_word):
+                                    # checks if you already activated power
+                                    if power:
+                                        print('Der Strom ist schon an.')
+                                    else:
+                                        Powerbox.activate_power(powerbox)
+                                        power_check = False
+
+                    if power_check:
+                        print('Das geht gerade nicht.')
 
     # checks if any word with "suche" is in input, then checks if any word in input is in the list of items
     # in the room you're in, finally prints inventory of the item
@@ -209,7 +282,7 @@ while game:
                     # checks player inventory if item already in inventory
                     for item in Player.inventory:
                         if fnmatch.filter(x, '*' + item.name + '*'):
-                            print(item.name,'liegt in deinem Inventar.')
+                            print(item.name, 'liegt in deinem Inventar.')
                             print('Info -', item.description)
                             check = True
                     # only checks if not already in player inventory
@@ -219,8 +292,8 @@ while game:
                         if not check2:
                             for object in Player.position.items:
                                 # checks if input words could be a object
-                                if fnmatch.filter(x,'*' + object.name + '*'):
-                                    print('Du untersuchst:\n',object.name)
+                                if fnmatch.filter(x, '*' + object.name + '*'):
+                                    print('Du untersuchst:\n', object.name)
                                     print(object.description)
                                     check2 = True
                                     # sets searched status to true so it can be picked up
@@ -230,6 +303,8 @@ while game:
                                         print('Du findest folgendes:')
                                         for item in object.inventory:
                                             print(item.name)
+                                    if object.name == 'Fenster':
+                                        room_connections.append([rear, bedroom])
                                     # if object has no inventory prints out text
                                     else:
                                         print('Dir fällt sonst nichts besonders auf.')
@@ -238,34 +313,9 @@ while game:
                             print('Das kannst du nicht untersuchen.')
                     break
 
-            # gehen
-            gehen = ['*gehe*', '*beweg*', '*lauf*']
-            for word in gehen:
-                if fnmatch.filter(x, word):
-
-                    # will be set to true if input is in the room list
-                    check = False
-                    # checks if input words could be a room
-                    for room in rooms:
-                        if fnmatch.filter(x, '*' + room.name + '*'):
-                            check = True
-                            if room.name == Player.position.name:
-                                print('Du bist bereits hier.')
-                            elif connection_check(room, Player.position):
-                                print('Du gehst jetzt hierhin:\n', room.name)
-                                print(room.description)
-                                # changes player position to new room
-                                Player.position = room
-                            else:
-                                print('Von hier aus kannst du dort nicht hingehen.')
-                            break
-                    if not check:
-                        print('Dahin kannst du nicht gehen.')
-                break
-                # if no command in input gets recognized
-
-            else:
-                print('Das kannst du leider nicht machen.')
+            # if no command in input gets recognized
+                #else:
+                    #print('Das kannst du leider nicht machen.')
 
     # if any python error occurs
         except Exception:
