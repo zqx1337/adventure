@@ -4,10 +4,6 @@ class Player:
         self.position = position
         self.inventory = inventory
 
-    def move(self, position):
-        self.position = position
-        print('Spieler geht ', position.name,'.')
-
 
 class Person:
     def __init__(self, name, description, inventory, mission, talk, talk2, reward):
