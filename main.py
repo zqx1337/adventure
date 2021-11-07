@@ -96,14 +96,16 @@ while game:
                     # available paths
                     print('Du könntest hierhin gehen:')
                     room_list = []
+                    new_entrys = []
                     # needed because objects get deleted if not copied
                     for entry in room_connections:
                         for room in entry:
                             if Player.position == room:
-                                new_entry = entry
-                    for room in new_entry:
-                        if not room == Player.position:
-                            room_list.append(room.name)
+                                new_entrys.append(entry)
+                    for entry in new_entrys:
+                        for room in entry:
+                            if not room == Player.position:
+                                room_list.append(room.name)
                         joined_roomlist = ", ".join(room_list)
                     print(joined_roomlist)
                     # if any person exists in room prints out
