@@ -105,7 +105,7 @@ rear = Room(name='Garten', description='', items=[window], person=[])
 bedroom = Room(name='Schlafzimmer', description='', items=[bedroom_boxes, window], person=[Berty])
 
 # garage
-garage = Room(name='Garage', description='', items=[workbench, car, trunk, computer], person=[])
+garage = Room(name='Garage', description='', items=[workbench, car, trunk], person=[])
 
 # livingroom
 livingroom = Room(name='Wohnzimmer', description='', items=[table, coffeemachine, fridge], person=[])
