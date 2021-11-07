@@ -57,7 +57,7 @@ bedroom_boxes = Objects(name='Schlafzimmer-Boxen', description='Die Kisten im Sc
 workbench = Objects(name='Werkbank', description='Tolle Werkbank. Gerade kannst du sie nicht gebrauchen.', searched=False, inventory=[])
 
 # car
-car = Objects(name='Auto', description='Dein Auto. Vielleicht ist noch was im Kofferraum?', searched=False, inventory=[])
+car = Objects(name='Auto', description='Dein Auto. Vielleicht ist noch was im Kofferraum?', searched=False, inventory=[computer])
 
 # trunk
 trunk = Objects(name='Kofferraum', description='War noch was im Kofferraum?', searched=False, inventory=[monitor])
