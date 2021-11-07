@@ -216,7 +216,7 @@ while game:
                                 check = True
                                 if person.reward:
                                     for reward in person.reward:
-                                        print('Du erhälst als Belohnung:\n', reward)
+                                        print('Du erhälst als Belohnung:\n', reward.name)
                                         Player.inventory.append(reward)
                                         person.reward.remove(reward)
                                 else:
