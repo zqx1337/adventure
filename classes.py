@@ -65,7 +65,7 @@ class Powerbox(Objects):
 
     def activate_power(self):
         print('Der Strom geht an.')
-        power = True
+        self.active = True
 
 
 

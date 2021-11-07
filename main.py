@@ -266,7 +266,9 @@ while game:
                                         print('Der Strom ist schon an.')
                                     else:
                                         Powerbox.activate_power(powerbox)
-                                        power_check = False
+                                        if powerbox.active:
+                                            power = True
+                                            power_check = False
 
                     if power_check:
                         print('Das geht gerade nicht.')
