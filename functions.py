@@ -15,5 +15,5 @@ def connection_check(room1, room2):
 
 def winning(comp, player):
     if Player.position == workroom:
-        if all(x in [comp] for x in [player]):
+        if all(x in comp for x in player):
             return True

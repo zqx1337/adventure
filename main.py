@@ -315,10 +315,9 @@ while game:
             # if no command in input gets recognized
                 #else:
                     #print('Das kannst du leider nicht machen.')
-
             if winning(computer_items, Player.inventory):
                 print('Glückwunsch! Du hast alle Gegenstände gefunden und sie ins Arbeitszimmer gebracht.'
-                      'Damit hast du das Spiel gewonnen.')
+                      ' Damit hast du das Spiel gewonnen.')
                 game = False
 
     # if any python error occurs
