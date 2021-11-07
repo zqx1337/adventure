@@ -78,7 +78,7 @@ bathroom_boxes = Objects(name='Badezimmer-Boxen', description='Die Kisten im Bad
 ### Powerbox Class (activateable stuff) ###
 
 # powerbox
-powerbox = Powerbox(name='Stromkasten', description='Der Stromkasten. Sind alle Sicherung drin?', active=False)
+powerbox = Powerbox(name='Stromkasten', description='Der Stromkasten. Sind alle Sicherung drin?', active=False, inventory=[])
 
 
 ### Coffeemachine Class (Stuff that creates something) ###

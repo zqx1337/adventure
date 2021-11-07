@@ -57,14 +57,16 @@ class Coffeemachine(Objects):
 class Powerbox(Objects):
     pass
 
-    def __init__(self, name, description, active):
+    def __init__(self, name, description, active, inventory):
         self.name = name
         self.description = description
         self.active = active
+        self.inventory = inventory
 
     def activate_power(self):
         print('Der Strom geht an.')
         power = True
+
 
 
 # rooms
